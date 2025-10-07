@@ -1,0 +1,14 @@
+def sieve(limit):
+    sieve = [True] * (limit + 1)
+    sieve[0:2] = [False, False]
+    for i in range(2, int(limit ** 0.5) + 1):
+        if sieve[i]:
+            sieve[i * i : limit + 1 : i] = [False] * len(range(i * i, limit + 1, i))
+    return [i for i, prime in enumerate(sieve) if prime]
+
+limit = 200000
+primes = sieve(limit)
+while len(primes) < 10001:
+    limit *= 2
+    primes = sieve(limit)
+print(primes[10000])
